@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>EKAJAYA || <%= title %></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/libs/css/style.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <script src="/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/assets/vendor/jquery/jquery.mask.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+<!-- ============================================================== -->
+<!-- signup form  -->
+<!-- ============================================================== -->
+
+<body>
+    <!-- ============================================================== -->
+    <!-- signup form  -->
+    <!-- ============================================================== -->
+    <form action="/register" method="POST" class="splash-container">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-1">Form Pendaftaran</h3>
+                <p>Silahkan isi informasi pengguna</p>
+                <% if(failedMessageRegister.length > 0){ %>
+                <div class="alert alert-danger">
+                    <strong>failed!</strong> <%= failedMessageRegister %>
+                </div>
+                <% } %>
+                <% if(successMessageRegister.length > 0){ %>
+                    <div class="alert alert-success">
+                        <strong>success!</strong> <%= successMessageRegister %>
+                    </div>
+                    <% } %>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="number" name="id" required=""
+                        placeholder="ID" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="email" name="email" required=""
+                        placeholder="Email" autocomplete="off">
+                </div>
+                <!-- <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="nama" required=""
+                        placeholder="Nama Lengkap" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="telepon" required=""
+                        placeholder="Telepon / Ponsel" autocomplete="off">
+                </div> -->
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="password" name="password" required=""
+                        placeholder="Password" autocomplete="off">
+                </div>
+                <!-- <div class="form-group">
+                    <input class="form-control form-control-lg" id="pass1" name="retypePassword" type="password"
+                        required="" placeholder="Retype Password">
+                </div> -->
+                <!-- <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="bagian" required=""
+                        placeholder="Bagian" autocomplete="off">
+                        <select name="isAdmin" id="selectRole" class="form-control form-control-lg" type="text">
+                            <option selected disabled>Pilih Bagian ...</option>
+                            <option id="opAdmin" value="opAdmin">Admin</option>
+                            <option id="opUser" value="opUser">Kasir</option>
+                        </select>
+                </div> -->
+                <!-- <div class="form-group" style="display: none;">
+                    <input class="form-control form-control-lg" type="date" name="createDate" required=""
+                        value="today" autocomplete="off" readonly>
+                </div> -->
+                <!-- <div id="admCode" class="form-group"  style="display:none">
+                    <input class="form-control form-control-lg"type="password" name="adminCode" placeholder="Kode Admin">
+                    <small style="color:red">"Kolom Kode Admin hanya untuk register sebagai admin, jika anda register sebagai kasir, kosongkan saja kolom ini !"</small>
+                </div> -->
+                <div class="form-group pt-2">
+                    <button class="btn btn-block btn-primary" type="submit">Daftar</button>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <p>Sudah punya akun ? <a href="/" class="text-secondary">Login Disini.</a></p>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+
+        var selectRole = jQuery('#selectRole');
+        var select = this.value;
+         selectRole.change(function () {
+           if ($(this).val() == 'opAdmin') {
+              $('#admCode').show();
+           }
+            else $('#admCode').hide();
+        });
+        </script>
+</body>
+
+
+</html>
