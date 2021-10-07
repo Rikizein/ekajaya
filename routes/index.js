@@ -5,7 +5,12 @@ const axios = require('axios')
 
 /* GET home page. */
 router.get('/home', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  axios.get('http://localhost:3000/users')
+  .then((response) => {
+    console.log(response.data);
+    res.render('index', { title: 'Express', users:response.data });
+  })
+  
 });
 
 // router.get('/', function (req, res, next) {
