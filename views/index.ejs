@@ -7,6 +7,8 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <hr>
+    <div class="data"></div>
 
     <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
@@ -23,10 +25,20 @@
           url:'https://reqres.in/api/users'
       }).done((response) => {
           console.log("response",response.data);
+          let html = ''
+          let data = response.data
+          data.forEach(items => {
+            html += `email : ${items.email} <br /> first name : ${items.first_name} <br /><hr>`
+
+            $(".data").html(html)
+          });
+          
       })
       }
          
-
+      function data() {
+        
+      }
       
   </script>
   </body>
