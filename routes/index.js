@@ -4,7 +4,7 @@ var router = express.Router();
 const axios = require('axios')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/home', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 //     })
 // });
 
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
   res.render('login', {
     title: 'login',
     loginMessage: req.flash("loginMessage"),
@@ -37,7 +37,7 @@ router.get('/login', (req, res) => {
 
 router.post('/', (req, res) => {
   if (req.body.email === 'admin@gmail.com' && req.body.password === 'admin') {
-    res.redirect('/')
+    res.redirect('/home')
   }
 })
 
