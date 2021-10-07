@@ -37,7 +37,7 @@ router.get('/login', (req, res) => {
 
 router.post('/', (req, res) => {
   if (req.body.email === 'admin@gmail.com' && req.body.password === 'admin') {
-    res.redirect('/home')
+    res.redirect('/')
   }
 })
 
