@@ -4,11 +4,29 @@ var router = express.Router();
 const axios = require('axios')
 
 /* GET home page. */
-router.get('/home', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/', (req, res) => {
+// router.get('/', function (req, res, next) {
+//   axios.get(`https://github.com/Rikizein/jsondb/blob/gh-pages/users.json`)
+//     .then(function (response) {
+//       console.log('sdfhbskbfbsfbksbkskdfksd', response);
+//       res.render('index', {
+//         title: "Sales Index",
+//         data:response
+//       })
+//     })
+// });
+
+// router.get('/', function (req, res, next) {
+//   fetch(`https://fakestoreapi.com/products`)
+//     .then(function (response) {
+//       res.json(response)
+//     })
+// });
+
+router.get('/login', (req, res) => {
   res.render('login', {
     title: 'login',
     loginMessage: req.flash("loginMessage"),
@@ -18,27 +36,33 @@ router.get('/', (req, res) => {
 
 
 router.post('/', (req, res) => {
-  if (!req.body.email || !req.body.password) {
-      req.flash('loginMessage', "please fill all form input");
-      return res.redirect('/');
+  if (req.body.email === 'admin@gmail.com' && req.body.password === 'admin') {
+    res.redirect('/home')
   }
-  axios.post(`http://localhost:3000/users`, {
-      email: req.body.email,
-      password: req.body.password
-  })
-      .then(function (response) {
-        console.log("cek respon", response.data);
-          if (response.data.err) {
-              req.flash('loginMessage', response.data.message);
-              res.redirect('/');
-          }
-          res.redirect('/home')
-      })
-      .catch(function (err) {
-          req.flash('loginMessage', "Terjadi kesalahan");
-          res.redirect('/');
-        })
 })
+
+// router.post('/', (req, res) => {
+//   if (!req.body.email || !req.body.password) {
+//       req.flash('loginMessage', "please fill all form input");
+//       return res.redirect('/');
+//   }
+//   axios.post(`http://localhost:3000/users`, {
+//       email: req.body.email,
+//       password: req.body.password
+//   })
+//       .then(function (response) {
+//         console.log("cek respon", response.data);
+//           if (response.data.err) {
+//               req.flash('loginMessage', response.data.message);
+//               res.redirect('/');
+//           }
+//           res.redirect('/home')
+//       })
+//       .catch(function (err) {
+//           req.flash('loginMessage', "Terjadi kesalahan");
+//           res.redirect('/');
+//         })
+// })
 
 router.get('/register', (req, res) => {
   res.render('register', {

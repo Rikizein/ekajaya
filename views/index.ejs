@@ -7,5 +7,27 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
+    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        load()
+      })
+      
+
+      function load() {
+        $.ajax({
+          type:"GET",
+          url:'https://reqres.in/api/users'
+      }).done((response) => {
+          console.log("response",response.data);
+      })
+      }
+         
+
+      
+  </script>
   </body>
 </html>
