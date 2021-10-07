@@ -52,10 +52,28 @@ router.get('/', (req, res) => {
 })
 
 
+// router.post('/', (req, res) => {
+//   if (req.body.email === 'admin@gmail.com' && req.body.password === 'admin') {
+//     res.redirect('/home')
+//   }
+// })
+
 router.post('/', (req, res) => {
-  if (req.body.email === 'admin@gmail.com' && req.body.password === 'admin') {
-    res.redirect('/home')
+  const existUsers = getAllUsers()
+  const userData = req.body
+
+  if (userData.email == null || userData.password == null) {
+    return res.status(401).send({ error: true, msg: 'User data missing' })
   }
+
+  const findExistEmail = existUsers.find(user => user.email === userData.email)
+  const findExistPwd = existUsers.find(user => user.password === userData.password)
+
+  if (!findExistEmail || !findExistPwd) {
+    req.flash('loginMessage', "Wrong Credentials");
+    return res.redirect('/');
+  }
+  res.redirect('/home');
 })
 
 // router.post('/', (req, res) => {
