@@ -2,16 +2,28 @@ var express = require('express');
 var router = express.Router();
 
 const axios = require('axios')
+const fs = require('fs');
+
 
 /* GET home page. */
-router.get('/home', function(req, res, next) {
-  axios.get('http://localhost:3000/users')
-  .then((response) => {
-    console.log(response.data);
-    res.render('index', { title: 'Express', users:response.data });
-  })
+
+const getAllUsers = () => {
+  const users = fs.readFileSync('seeds/users.json')
+  return JSON.parse(users)
+}
+
+router.get('/home', (req, res) => {
+  const users = getAllUsers()
+  res.render('index', { title: 'Express', users:users });
+})
+// router.get('/home', function(req, res, next) {
+//   axios.get('http://localhost:3000/users')
+//   .then((response) => {
+//     console.log(response.data);
+//     res.render('index', { title: 'Express', users:response.data });
+//   })
   
-});
+// });
 
 // router.get('/', function (req, res, next) {
 //   axios.get(`https://github.com/Rikizein/jsondb/blob/gh-pages/users.json`)
