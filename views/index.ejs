@@ -9,12 +9,8 @@
     <p>Welcome to <%= title %></p>
     <hr>
     <div class="data"></div>
-    <% for(var i = 0; i < users.length; i++){%>
-      <%= users[i].email %>
-    <%}%>
-
     <% for(var i = 0; i < products.length; i++){%>
-      <img src="../products/<%=products[i].img%>" alt=""><%= products[i].img %>
+      <img src="../products/<%=products[i].img%>" alt="">
     <%}%>
     
 
