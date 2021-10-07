@@ -9,7 +9,10 @@
     <p>Welcome to <%= title %></p>
     <hr>
     <div class="data"></div>
-    <%= users[0].email %>
+    <% for(var i = 0; i < users.length; i++){%>
+      <%= users[i].email %>
+    <%}%>
+    
 
     <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>

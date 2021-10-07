@@ -12,6 +12,11 @@ const getAllUsers = () => {
   return JSON.parse(users)
 }
 
+const saveUserData = (data) => {
+  const stringifyData = JSON.stringify(data)
+  fs.writeFileSync('seeds/users.json', stringifyData)
+}
+
 router.get('/home', (req, res) => {
   const users = getAllUsers()
   res.render('index', { title: 'Express', users:users });
@@ -25,23 +30,6 @@ router.get('/home', (req, res) => {
   
 // });
 
-// router.get('/', function (req, res, next) {
-//   axios.get(`https://github.com/Rikizein/jsondb/blob/gh-pages/users.json`)
-//     .then(function (response) {
-//       console.log('sdfhbskbfbsfbksbkskdfksd', response);
-//       res.render('index', {
-//         title: "Sales Index",
-//         data:response
-//       })
-//     })
-// });
-
-// router.get('/', function (req, res, next) {
-//   fetch(`https://fakestoreapi.com/products`)
-//     .then(function (response) {
-//       res.json(response)
-//     })
-// });
 
 router.get('/', (req, res) => {
   res.render('login', {
@@ -108,26 +96,49 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-  axios.post(`http://localhost:3000/users/register`, {
-    id:req.body.id,
-    email: req.body.email,
-    password: req.body.password
-  })
-    .then((response) => {
-      if (response.success = false) {
-        req.flash('failedMessageRegister', "Register Gagal");
-        res.redirect('/register')
-      } else {
-        req.flash('successMessageRegister', "Register Berhasil Silahkan Login")
-        // req.session.user = response.data.data;
-        res.redirect('/register')
-      }
-    })
-    .catch(function (err) {
-      console.error(err);
-      req.flash('failedMessageRegister', "something went wrong");
-      res.redirect('/register');
-    })
+  const existUsers = getAllUsers()
+  const userData = req.body
+
+  if (userData.email == null || userData.password == null) {
+    req.flash('failedMessageRegister', "Fields cannot empty");
+    return res.redirect('/register')
+  }
+
+  const findExist = existUsers.find(user => user.email === userData.email)
+  if (findExist) {
+    req.flash('failedMessageRegister', "Email already exist");
+    return res.redirect('/register')
+  }
+
+  //append the user data
+  existUsers.push(userData)
+
+  //save the new user data
+  saveUserData(existUsers);
+  req.flash('successMessageRegister', "User data added successfully...please login");
+  res.redirect('/register')
 })
+// router.post('/register', (req, res) => {
+//   axios.post(`http://localhost:3000/users/register`, {
+//     id:req.body.id,
+//     email: req.body.email,
+//     password: req.body.password
+//   })
+//     .then((response) => {
+//       if (response.success = false) {
+//         req.flash('failedMessageRegister', "Register Gagal");
+//         res.redirect('/register')
+//       } else {
+//         req.flash('successMessageRegister', "Register Berhasil Silahkan Login")
+//         // req.session.user = response.data.data;
+//         res.redirect('/register')
+//       }
+//     })
+//     .catch(function (err) {
+//       console.error(err);
+//       req.flash('failedMessageRegister', "something went wrong");
+//       res.redirect('/register');
+//     })
+// })
 
 module.exports = router;
