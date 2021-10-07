@@ -12,6 +12,11 @@ const getAllUsers = () => {
   return JSON.parse(users)
 }
 
+const getAllProducts = () => {
+  const products = fs.readFileSync('seeds/products.json')
+  return JSON.parse(products)
+}
+
 const saveUserData = (data) => {
   const stringifyData = JSON.stringify(data)
   fs.writeFileSync('seeds/users.json', stringifyData)
@@ -19,7 +24,8 @@ const saveUserData = (data) => {
 
 router.get('/home', (req, res) => {
   const users = getAllUsers()
-  res.render('index', { title: 'Express', users:users });
+  const products = getAllProducts()
+  res.render('index', { title: 'Express', users:users, products:products});
 })
 // router.get('/home', function(req, res, next) {
 //   axios.get('http://localhost:3000/users')
